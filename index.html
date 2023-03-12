@@ -1,196 +1,288 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Welcome 2 cumsoftcumsoft</title>
-    <style>
-    #mydiv {
-  border-radius: 8px 8px 4px 4px;
-  width: 250px;
-  height: 250px;
-  z-index: 9;
-  position: absolute;
-  min-width: 200px;
-  min-height: 350px;
-  //background-color: transparent;
-   //resize: both;
-     //overflow: auto;
-}
 
-#mydivheader {
-  border-radius: 6px 6px 3px 3px;
-  border-color: #000;
-  border-style: solid;
-  border-width: 1px;
-  top: -619px;
-  left: 128px;
-  color: yellow;
-  width: calc(100% - 2px);
-  cursor: move;
-  height: 15px;
-  z-index: 10;
-  position: relative;
-  background-color: hotpink;
-   //resize: both;
-    // overflow: auto;
-}
+  <html style="color: rgb(30, 34, 33);"></html>
+	<head>
+       <h6> 
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+        <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin="">
+        </script>
+     
+        <body>  
+        <div id="map">
+<div class="information-block">        
+    <meta charset="utf-8">
+    <link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/124597029?s=120&v=4">
+<div>
 
-#content {
-  color:black;
-  border-radius: 0 0 6px 6px;
-  border-color: #000;
-  border-style: none solid solid solid;
-  border-width: 1px;
-  position: relative;
-  z-index: 11;
-  top: -619px;
-  left: 128px;
-   width: 250px;//calc(100% - 4px);
-   min-width: 250px;
-  max-width: 250px;
-  filter: blur(1px);
-  height: 350; //calc(100% - 2px);
-   min-height: 200px;
-  filter: drop-shadow(8px 14px 4px rgba(0, 0, 0, 0.4));
-  background-color: lightgray;
-   resize: both;
-     overflow: auto;
-}</style>
-    <script src="index.js"></script>
-    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
-  </head>
- <body>
+
+<h1  style="color:rgb(48, 40, 48) ;">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&&nbsp <big><big>OptiC</big></big></h1>
+
+</div>
+</head>
+
+<p=id="ideveloper">
+    <div class="information-block"></div>
+    <p>
+ Проектирование сетей оптических линий связи для доступа в интернет с учётом максимального кол-ва абонентов, включает в себя:
+    Проектирование , монтаж, подключение и обслуживание абонентов <b>internet</b>.
+    На этапе проектирования в первую очередь учитывается кол-во потребителей интернета.
+    Для упрощения процесса разрабатывается <b>Web-service</b> с привязкой к <b>Приложению</b> по созданию вычисления кол-ва материалов/оборудования из <b>БД</b> для монтажа <b>GPON</b> сети с привязкой к <b>OpenStreetMap's</b>, по которым <b>абонент/провайдер/любой пользователь на сайте</b> может определить <b>~стоимость</b> подключения к сети с учётом оборудования, материалов, работ, которые производят калькуляцию и вычисление подключения в <b>Частом/Многоквартирном</b> секторе.
     
-    <canvas id="running-text" height=800px width=700px></canvas>
-    <script>
-      const word_color_pairs={
-        'cumsoft': '#ff844b',
-        'cumsoftgithub': '#82ff2e',
-        'cumsoft.wixsite.com': '#999999',
-        'Cumsoft': '#000000',
-        'cumsoftcumsoftcumsoft': '#ffffff',
-        'cumsoftcumsoft': '#f8008d',
-        'cumsoftcumsoft.github.io': '#ff30d3',
-      };
-      const getRandomKVPair=function(object)
-      {
-        const keys=Object.keys(object);
-        const rand_key=keys[Math.floor(Math.random()*keys.length)];
-        return {
-          'key': rand_key,
-          'value': object[rand_key],
-        };
-      };
-      const canvas=document.getElementById('running-text');
-      const canvas_context=canvas.getContext('2d');
-      let animation_id=undefined;
-      let word_x=0;
-      let word_y=10;
-      const stopRunning=function()
-      {
-        if(animation_id!==undefined)
-          window.clearInterval(animation_id);
-        animation_id=undefined;
-      };
-      const startRunning=function(word_color_pairs,canvas_background,interval)
-      {
-        const max_width=canvas.width;
-        const max_height=canvas.height;
-        //Blanket the canvas with the background.
-        canvas_context.fillStyle=canvas_background;
-        canvas_context.fillRect(0,0,max_width,max_height);
-        const run=function()
-        {
-          console.log('running');
-          if(word_y>max_height)
-          {
-            stopRunning();
-            return;
-          }
-          //Get info here.
-          const w_c_pair=getRandomKVPair(word_color_pairs);
-          //The actual width of the string measured in pixels according to the canvas.
-          const canvas_font_width=canvas_context.measureText(w_c_pair['key']+' ').width;
-          //The font color is set.
-          canvas_context.fillStyle=w_c_pair['value'];
-          //Render the random keyword.
-          canvas_context.fillText(w_c_pair['key']+' ',word_x,word_y);
-          //Update the rendering X-coordinate.
-          word_x+=canvas_font_width;
-          //If the X coordinate goes out of bounds, goto the beginning of the next line.
-          if(word_x>max_width)
-          {
-            word_x=1;
-            word_y+=10;
-          }
-        };
-        //Begin the animation.
-        animation_id=window.setInterval(run,interval);
-      };
-      startRunning(word_color_pairs,'#d9ead3',50);
-    </script>
-<br><br><br>
-  <!-- Draggable DIV -->
-  <div id="mydiv">
-    <!-- Include a header DIV with the same name as the draggable DIV, followed by "header" -->
-    <div id="mydivheader">&nbsp;<b>Menu le cumsoft</b></div>
-    <div id="content" style="height: 100px;">
-     <a-scene>
-      <a-box position="-1 0.5 -3" rotation="0 45 0" color="#4CC3D9"></a-box>
-      <a-sphere position="0 1.25 -5" radius="1.25" color="#EF2D5E"></a-sphere>
-      <a-cylinder position="1 0.75 -3" radius="0.5" height="1.5" color="#FFC65D"></a-cylinder>
-      <a-plane position="0 0 -4" rotation="-90 0 0" width="4" height="4" color="#7BC8A4"></a-plane>
-      <a-sky color="#ECECEC"></a-sky>
-    </a-scene>
+    <p>(Eng.) Designing networks of optical communication lines for Internet access, taking into account the maximum number of subscribers, includes:
+        Design, installation, connection and maintenance of <b>internet</b> subscribers.
+        At the design stage, the number of Internet consumers is primarily taken into account.
+        To simplify the process, a <b>Web-service</b> is being developed with reference to the <b>Application</b> to create a calculation of the number of materials / equipment from the <b>DB</b> for mounting <b>GPON</b> networks linked to <b>OpenStreetMap's</b>, by which <b>subscriber/provider/any user on the site</b> can determine <b>~cost</b> of connecting to the network taking into account the equipment, materials, works that calculate and calculate the connection in the <b>Private / Multi-apartment</b> sector.    
     </div>
-  </div>
-<script>
-  // Make the DIV element draggable:
-dragElement(document.getElementById("mydiv"));
+    <br>  </p> 
+   
+    <div id="sf">
+    <div class="typeahead Outer"><input type="text" value="" id="start" class="bd" placeholder="город..." autocomplete="off"></div> <nbsp& class="waves-effect btn" onclick="addWaypoint(this, 'город...')">
+    
 
-function dragElement(elmnt) {
-  var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
-  if (document.getElementById(elmnt.id + "header")) {
-    // if present, the header is where you move the DIV from:
-    document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
-  } else {
-    // otherwise, move the DIV from anywhere inside the DIV:
-    elmnt.onmousedown = dragMouseDown;
-  }
+    
+    
+    <br><div class="typeaheadOuter"><input type="text" value="" id="end" class="bd" placeholder="улица..." autocomplete="off"></div> <nbsp& class="waves-effect btn" onclick="addWaypoint(this, 'улица...')"><title>4 Таблица</title>
+<meta charset="utf-8">
+<meta name="keywords" content="мой сайт, html, привет!">
+<meta name="keywords" content="Этот сайт помогает создавать людям собственные сайты">
+<link rel="shortcut icon" href="https://avatars.githubusercontent.com/u/124597029?s=120&v=4">
 
-  function dragMouseDown(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // get the mouse cursor position at startup:
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    document.onmouseup = closeDragElement;
-    // call a function whenever the cursor moves:
-    document.onmousemove = elementDrag;
-  }
+</head>
+    
+    
+    <div class="typeahead Outer"><input type="number" value="" id="start" class="bd" placeholder="номер дома..." autocomplete="off"></div> <nbsp& class="waves-effect btn" onclick="addWaypoint(this, 'номер дома...')"><br><br> <input id="calc OptiC" 
+    
+    
+    class="bt" type="button" value="Расчёт подключения к сети GPON!">
+    <h2>Russia Maps</h2> 
+     
+    <style type="text/css">
 
-  function elementDrag(e) {
-    e = e || window.event;
-    e.preventDefault();
-    // calculate the new cursor position:
-    pos1 = pos3 - e.clientX;
-    pos2 = pos4 - e.clientY;
-    pos3 = e.clientX;
-    pos4 = e.clientY;
-    // set the element's new position:
-    elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
-    elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
-  }
+.m {
 
-  function closeDragElement() {
-    // stop moving when mouse button is released:
-    document.onmouseup = null;
-    document.onmousemove = null;
-  }
-}</script> 
-<br><br><br><br>
+float: left; /* Обтекание по правому краю */
 
-  </body>
-</html>
+margin-right: 10px; /* Отступ справа */
+
+}
+
+</style>
+
+<div class="m">
+
+<table border=1>
+
+
+</table>
+
+</div>
+
+<div class="m">
+    <table class="table-purpure" border="1">
+         
+        <caption>Количество Оптического Волокна</caption>
+    <thead>
+        <tr>
+        <th> Наименование и ёмкость волокон   <th>Кол-во</th> </tr>
+        </tr>            
+    </thead>
+    <tbody>
+        <tr>
+            <td> 12/24/48 </td>
+            <td> 1 </td>
+            </tr>
+            <tr>
+                <td>ОРК</td>
+                <td>3</td>
+                </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Итого: 4</td>
+            </tr>
+            <tfoot>
+            </table>       
+<table border=1>
+</table>
+
+
+</div>
+<div class="m">
+    <table class="table-purpure" border="1">
+         
+        <caption>Суммарное оборудование</caption>
+    <thead>
+        <tr>
+        <th> Наименование оборудования  <th>Кол-во</th> </tr>
+        </tr>            
+    </thead>
+    <tbody>
+        <tr>
+            <td> ОРШ </td>
+            <td> 1 </td>
+            </tr>
+            <tr>
+                <td>ОРК</td>
+                <td>3</td>
+                </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Итого: 4</td>
+            </tr>
+            <tfoot>
+            </table>       
+<table border=1>
+</table>
+
+
+</div>
+<div class="m">
+    <table class="table-purpure" border="1">
+         
+        <caption>Суммарное оборудование</caption>
+    <thead>
+        <tr>
+        <th> Наименование оборудования  <th>Кол-во</th> </tr>
+        </tr>            
+    </thead>
+    <tbody>
+        <tr>
+            <td> ОРШ </td>
+            <td> 1 </td>
+            </tr>
+            <tr>
+                <td>ОРК</td>
+                <td>3</td>
+                </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Итого: 4</td>
+            </tr>
+            <tfoot>
+            </table>       
+<table border=1>
+</table>
+
+
+</div>
+<div class="m">
+    <table class="table-purpure" border="1">
+         
+        <caption>Суммарное оборудование</caption>
+    <thead>
+        <tr>
+        <th> Наименование оборудования  <th>Кол-во</th> </tr>
+        </tr>            
+    </thead>
+    <tbody>
+        <tr>
+            <td> ОРШ </td>
+            <td> 1 </td>
+            </tr>
+            <tr>
+                <td>ОРК</td>
+                <td>3</td>
+                </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="2">Итого: 4</td>
+            </tr>
+            <tfoot>
+            </table>       
+<table border=1>
+</table>
+
+
+</div>
+
+    
+<table class="table-purpure" border="1">
+             <caption>Стоимость работ</caption>
+            <thead>
+                <tr>
+                    
+                <th> Наименование оборудования  <th>Кол-во</th> </tr>
+                </tr>            
+            </thead>
+            <tbody>
+                <tr>
+                    <td> прокладка </td>
+                    <td> 1 </td>
+                    </tr>
+                    <tr>
+                        <td>монтаж</td>
+                        <td>3</td>
+                        </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Итого: 4</td>
+                    </tr>
+                    <tfoot>
+                    </table>
+                </li>
+                </p>
+            </li>
+       
+    <iframe width="948" height="200" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://www.openstreetmap.org/export/embed.html?bbox=29.003906250000004%2C41.24381034198019%2C165.05859375000003%2C75.4085319143519&amp;layer=mapnik&amp;marker=62.9146505043593%2C97.03125" style="border: 1px solid black"></iframe><br/><small><a href="https://www.openstreetmap.org/?mlat=62.91&amp;mlon=97.03#map=3/62.91/97.03">Посмотреть более крупную карту</a></large>
+    
+    <p class="table-purpure" Расчёт подключения абонентов к сети интернет;></p>
+    <div class="information-block">
+    
+        <p>
+    OptiC упрощает процесс проектирования. Просто укажите места в поле поиска, и вы получите ориентировночную стоимость подключения абонентов (по опорам/по кабельным канализациям), возможный маршрут подключения и всю необходимую информацию по метериалам с учётом работ. Разумеется, вы можете расчитать работы и задавая координаты (долготу и широту). </p>
+    </div>
+    
+    <p>
+    Хотите определить стоимость подключения, OptiC вычисляет географическую точку ближайщей  опоры связи магистрального кабеля и расчитывает длинну опитческого кабеля с учётом расходных материалов для доступа в интернет. </p>
+    </div>
+    
+    
+    <div class="information-block">
+    <h3><a target="_new" href="https://www.openstreetmap.org/#map=4/61.67/88.86" title="" class="deeplink samecountry">Россия</a>: города</h3><p><a target="_new" href="https://www.openstreetmap.org/search?query=%D0%BC%D0%BE%D1%81%D0%BA%D0%B2%D0%B0#map=9/55.7252/37.6290" 
+        
+        title="" class="deeplink city" >Москва</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%20%D0%A1%D0%B0%D0%BD%D0%BA%D1%82-%D0%9F%D0%B5%D1%82%D0%B5%D1%80%D0%B1%D1%83%D1%80%D0%B3#map=10/59.9179/30.3053" title="" class="deeplink city">Санкт-Петербург</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%D0%9D%D0%BE%D0%B2%D0%BE%D1%81%D0%B8%D0%B1%D0%B8%D1%80%D1%81%D0%BA#map=10/55.0007/82.9557" title="" class="deeplink city">Новосибирск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%D0%95%D0%BA%D0%B0%D1%82%D0%B5%D1%80%D0%B8%D0%BD%D0%B1%D1%83%D1%80%D0%B3#map=10/56.7887/60.4752" title="" class="deeplink city">Екатеринбург</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9-%D0%9D%D0%BE%D0%B2%D0%B3%D0%BE%D1%80%D0%BE%D0%B4#map=11/56.2952/43.9195" title="" class="deeplink city">Нижний Новгород</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D0%B0%D0%BC%D0%B0%D1%80%D0%B0#map=10/53.3220/50.0609" title="" class="deeplink city">Самара</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9E%D0%BC%D1%81%D0%BA#map=9/55.1264/73.3787" title="" class="deeplink city">Омск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D0%B0%D0%B7%D0%B0%D0%BD%D1%8C#map=10/55.7673/49.1009" title="" class="deeplink city">Казань</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A0%D0%BE%D1%81%D1%82%D0%BE%D0%B2#map=11/47.2546/39.6612" title="" class="deeplink city">Ростов-на-Дону</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A7%D0%B5%D0%BB%D1%8F%D0%B1%D0%B8%D0%BD%D1%81%D0%BA#map=10/55.1563/61.3678" title="" class="deeplink city">Челябинск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A3%D1%84%D0%B0#map=10/54.7311/56.0386" title="" class="deeplink city">Уфа</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%92%D0%BE%D0%BB%D0%B3%D0%BE%D0%B3%D1%80%D0%B0%D0%B4#map=10/48.6486/44.3981" title="" class="deeplink city">Волгоград</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9F%D0%B5%D1%80%D0%BC%D1%8C#map=10/58.0227/56.2278" title="" class="deeplink city">Пермь</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D1%8F%D1%80%D1%81%D0%BA#map=11/56.0230/92.8980" title="" class="deeplink city">Красноярск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D0%B0%D1%80%D0%B0%D1%82%D0%BE%D0%B2#map=10/51.5391/46.0075" title="" class="deeplink city">Саратов</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%92%D0%BE%D1%80%D0%BE%D0%BD%D0%B5%D0%B6#map=10/51.6943/39.3361" title="" class="deeplink city">Воронеж</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A2%D0%BE%D0%BB%D1%8C%D1%8F%D1%82%D1%82%D0%B8#map=11/53.5219/49.4847" title="" class="deeplink city">Тольятти</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D0%BE%D0%B4%D0%B0%D1%80#map=11/45.0611/38.9787" title="" class="deeplink city">Краснодар</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A3%D0%BB%D1%8C%D1%8F%D0%BD%D0%BE%D0%B2%D1%81%D0%BA#map=11/54.3080/48.4879" title="" class="deeplink city">Ульяновск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%98%D0%B6%D0%B5%D0%B2%D1%81%D0%BA#map=10/56.8609/53.1990" title="" class="deeplink city">Ижевск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%AF%D1%80%D0%BE%D1%81%D0%BB%D0%B0%D0%B2%D0%BB%D1%8C#map=10/57.6507/39.8662" title="" class="deeplink city">Ярославль</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%91%D0%B0%D1%80%D0%BD%D0%B0%D1%83%D0%BB#map=10/53.3346/83.7205" title="" class="deeplink city">Барнаул</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%B2%D0%BE%D1%81%D1%82%D0%BE%D0%BA#map=11/43.1732/132.0389" title="" class="deeplink city">Владивосток</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%98%D1%80%D0%BA%D1%83%D1%82%D1%81%D0%BA#map=11/52.3156/104.2537" title="" class="deeplink city">Иркутск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A5%D0%B0%D0%B1%D0%B0%D1%80%D0%BE%D0%B2%D1%81%D0%BA#map=10/48.4651/135.0595" title="" class="deeplink city">Хабаровск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D1%82%D0%B0%D0%B2%D1%80%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C#map=12/45.0408/41.9627" title="" class="deeplink city">Ставрополь</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9E%D1%80%D0%B5%D0%BD%D0%B1%D1%83%D1%80%D0%B3#map=11/51.7904/55.1646" title="" class="deeplink city">Оренбург</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9D%D0%BE%D0%B2%D0%BE%D0%BA%D1%83%D0%B7%D0%BD%D0%B5%D1%86%D0%BA#map=10/53.7946/87.1551" title="" class="deeplink city">Новокузнецк</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A0%D1%8F%D0%B7%D0%B0%D0%BD%D1%8C#map=10/54.6705/39.7181" title="" class="deeplink city">Рязань</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A2%D1%8E%D0%BC%D0%B5%D0%BD%D1%8C#map=10/57.1420/65.5404" title="" class="deeplink city">Тюмень</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9B%D0%B8%D0%BF%D0%B5%D1%86%D0%BA#map=11/52.6032/39.6169" title="" class="deeplink city">Липецк</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9F%D0%B5%D0%BD%D0%B7%D0%B0#map=11/52.6032/39.6169" title="" class="deeplink city">Пенза</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9D%D0%B0%D0%B1%D0%B5%D1%80%D0%B5%D0%B6%D0%BD%D1%8B%D0%B5-%D0%A7%D0%B5%D0%BB%D0%BD%D1%8B#map=11/55.7129/52.3786" title="" class="deeplink city">Набережные Челны</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D0%B0%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D0%B9#map=14/48.0182/39.5955" title="" class="deeplink city">Калининский</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%90%D1%81%D1%82%D1%80%D0%B0%D1%85%D0%B0%D0%BD%D1%8C#map=11/46.3654/48.0365" title="" class="deeplink city">Астрахань</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9C%D0%B0%D1%85%D0%B0%D1%87%D0%BA%D0%B0%D0%BB%D0%B0#map=10/43.0200/47.4689" title="" class="deeplink city">Махачкала</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A2%D0%BE%D0%BC%D1%81%D0%BA#map=11/56.4853/84.9885" title="" class="deeplink city">Томск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D0%B5%D0%BC%D0%B5%D1%80%D0%BE%D0%B2%D0%BE#map=10/55.4010/86.1008" title="" class="deeplink city">Кемерово</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A2%D1%83%D0%BB%D0%B0#map=11/54.1808/37.6186" title="" class="deeplink city">Тула</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D0%B8%D1%80%D0%BE%D0%B2#map=10/58.5923/49.5759" title="" class="deeplink city">Киров</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A7%D0%B5%D0%B1%D0%BE%D0%BA%D1%81%D0%B0%D1%80%D1%8B#map=12/56.1041/47.2618" title="" class="deeplink city">Чебоксары</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D0%B0%D0%BB%D0%B8%D0%BD%D0%B8%D0%BD%D0%B3%D1%80%D0%B0%D0%B4#map=11/54.7047/20.4735" title="" class="deeplink city">Калининград</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%91%D1%80%D1%8F%D0%BD%D1%81%D0%BA#map=11/53.2793/34.3666" title="" class="deeplink city">Брянск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%D0%BE#map=11/57.0087/40.9973" title="" class="deeplink city">Иваново</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9C%D0%B0%D0%B3%D0%BD%D0%B8%D1%82%D0%BE%D0%B3%D0%BE%D1%80%D1%81%D0%BA#map=10/53.4258/59.0525" title="" class="deeplink city">Магнитогорск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D1%83%D1%80%D1%81%D0%BA#map=11/51.7272/36.1821" title="" class="deeplink city">Курск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A2%D0%B2%D0%B5%D1%80%D1%8C#map=11/56.8598/35.8948" title="" class="deeplink city">Тверь</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9D%D0%B8%D0%B6%D0%BD%D0%B8%D0%B9-%D0%A2%D0%B0%D0%B3%D0%B8%D0%BB#map=11/57.9300/59.9814" title="" class="deeplink city">Нижний Тагил</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D1%82%D0%B0%D0%B2%D1%80%D0%BE%D0%BF%D0%BE%D0%BB%D1%8C#map=12/45.0408/41.9627" title="" class="deeplink city">Ставрополь</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A3%D0%BB%D0%B0%D0%BD-%D0%A3%D0%B4%D1%8D#map=10/51.8659/107.6833" title="" class="deeplink city">Улан-Удэ</a>, <a target="_new" href=" https://www.openstreetmap.org/search?query=%2F%D0%90%D1%80%D1%85%D0%B0%D0%BD%D0%B3%D0%B5%D0%BB%D1%8C%D1%81%D0%BA#map=9/64.5859/40.5607" title="" class="deeplink city">Архангельск</a>, <a target="_new" href="   https://www.openstreetmap.org/search?query=%2F%D0%91%D0%B5%D0%BB%D0%B3%D0%BE%D1%80%D0%BE%D0%B4#map=11/50.5861/36.5835" title="" class="deeplink city">Белгород</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9A%D1%83%D1%80%D0%B3%D0%B0%D0%BD#map=7/55.537/65.344" title="" class="deeplink city">Курган</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%D0%BA%D0%B0%D0%BB%D1%83%D0%B3%D0%B0#map=11/54.5366/36.1961" title="" class="deeplink city">Калуга</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%D0%BD%D0%B5%D0%B2%D0%B8%D0%BD%D0%BD%D0%BE%D0%BC%D1%8B%D1%81%D1%81%D0%BA#map=12/44.6301/41.9445" title="" class="deeplink city">Невинномысск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%D1%81%D0%BE%D1%87%D0%B8#map=9/43.7138/39.5800" title="" class="deeplink city">Сочи</a>, 
+        <a target="_new" href="https://www.openstreetmap.org/search?query=%D0%BE%D1%80%D0%B5%D0%BB#map=19/44.69850/37.53014" title="" class="deeplink city">Орёл</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%D0%B2%D0%BE%D0%BB%D0%B6%D1%81%D0%BA%D0%B8%D0%B9#map=11/48.8308/44.7608" title="" class="deeplink city">Волжский</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%AE%D0%B3%D0%BE%D1%80%D1%81%D0%BA#map=10/61.3092/63.2852" title="" class="deeplink city">Югорск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%9D%D1%8F%D0%B3%D0%B0%D0%BD%D1%8C#map=10/62.1344/65.5278" title="" class="deeplink city">Нягань</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BA%D0%B0%D0%B2%D0%BA%D0%B0%D0%B7#map=12/43.0252/44.6731" title="" class="deeplink city">Владикавказ</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A7%D0%B5%D1%80%D0%B5%D0%BF%D0%BE%D0%B2%D0%B5%D1%86#map=11/59.1249/37.8615" title="" class="deeplink city">Череповец</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%92%D0%BE%D0%BB%D0%BE%D0%B3%D0%B4%D0%B0#map=13/59.3555/38.8405" title="" class="deeplink city">Вологда</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%92%D0%BB%D0%B0%D0%B4%D0%B8%D0%BC%D0%B8%D1%80#map=11/56.1230/40.4135" title="" class="deeplink city">Владимир</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D0%B5%D1%80%D0%BE%D0%B2#map=12/59.6137/60.5763" title="" class="deeplink city">Серов</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D0%B0%D1%80%D0%B0%D0%BD%D1%81%D0%BA#map=11/54.1916/45.1807" title="" class="deeplink city">Саранск</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%A1%D1%83%D1%80%D0%B3%D1%83%D1%82#map=11/61.3017/73.5010" title="" class="deeplink city">Сургут</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%98%D0%B2%D0%B4%D0%B5%D0%BB%D1%8C#map=12/60.6808/60.4387" title="" class="deeplink city">Ивдель</a>, <a target="_new" href="https://www.openstreetmap.org/search?query=%2F%D0%99%D0%BE%D1%88%D0%BA%D0%B0%D1%80-%D0%9E%D0%BB%D0%B0#map=11/56.6473/47.9662" title="" class="deeplink city">Йошкар-Ола</a></p> <h5
+    
+    
+    
+    <div class="information-block languages"> </div>
+    <p class="contribute">
+    <h1>Сделайте сервис OptiC доступнее для мира.</h1> <a target="_new"  <li <p><a target="_new" lang="en" href="https://donate.openstreetmap.org/" title="no money,no honey :)))">Помочь материально!</a></li>
+    <ul class="int">
+    <li class="us"><a target="_new" lang="en" href="https://www.OptiC" title="Calculate OptiCs worldwide">OptiC calculator</a></li>
+    </li> 
+    </div>
+  <a href="tel:+3432531343">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp+3432531343</a> </div>
+    <div class="information-block imprint">
+    <p>
+        &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp Hukumach (bYCHECHUR) <br>
+        &nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp E-Mail: <a target="_new" href="mailto:hukumachecurow@yandex.ru">Contact us!</a>
+    </p>
+ 
+    
+    <div id="Footer" class="footer">
+        <a  target="_new" href="https://docs.OptiC/api" title="OptiC API">API</a> -
+        <a target="_new" href="https://OptiC/" title="Excel OptiC calculation">OptiC</a> -
+        <a target="_new" href="https://docs.OptiC" title="Help &amp; Documentation">Help</a> -
+        <a target="_new" href="https://status.OptiC/" target="_new" title="System Status">Status</a> -
+        <a target="_new" href="https://www.openstreetmap.org/copyright">Privacy policy -
+        <a target="_new" href="https://www.openstreetmap.org/copyright" onclick="window._sp_.loadPrivacyManagerModal(207076)">Cookie settings</a>
+        &nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp   &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <a target="_new" href="https://www.openstreetmap.org/#map=1/58/5" target="_new" title="System Status"> OpenStreetMap Maps and Geodata: contributors © </a> 
+
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+        <a target="_new" href="https://github.com/bYCHECHUR/OptiC" title="Help &amp; Documentation">© 2023 OptiC, Inc.</a> 
+
+        <a href="" © 2023 OptiC, Inc.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+    </h6></a> 
+    </body> 
+
+    </ul>  
+    </div>
+
+  
+
